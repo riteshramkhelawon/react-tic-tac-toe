@@ -24,6 +24,9 @@ class Board extends React.Component {
 
   handleClick(i) {
     const squares = this.state.squares.slice();
+
+    if (squares[i] || getWinner(squares)) return;
+    
     squares[i] = this.state.xIsNext ? 'X' : 'O';
     this.setState({ 
       squares: squares,
@@ -97,9 +100,9 @@ function getWinner(squares) {
     [2, 4, 6]
   ];
 
-  for(let i = 0; i < winningCombos.length; i++) {
+  for (let i = 0; i < winningCombos.length; i++) {
     const [a, b, c] = winningCombos[i];
-    if(squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) return squares[a];
+    if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) return squares[a];
   }
 
   return null;
