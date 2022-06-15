@@ -70,7 +70,7 @@ class Game extends React.Component {
     this.setState({ 
       history: history.concat([{
         squares: squares,
-        location: getSquareCoordinates(i)
+        location: getCoordinates(i)
       }]),
       xIsNext: !this.state.xIsNext,
       stepNumber: history.length
@@ -140,17 +140,22 @@ function getWinner(squares) {
   return null;
 }
 
-function getSquareCoordinates(location) {
-  const col1 = [0, 3, 6];
-  const col2 = [1, 4, 7];
-  const col3 = [2, 5, 8];
-  let coordinates;
+function getCoordinates(location) {
+  const board = [
+    [0,1,2],
+    [3,4,5],
+    [6,7,8]
+  ]
 
-  if(col1.includes(location)) coordinates = `(0, ${col1.indexOf(location)})`;
-  if(col2.includes(location)) coordinates = `(1, ${col2.indexOf(location)})`;
-  if(col3.includes(location)) coordinates = `(2, ${col3.indexOf(location)})`;
-  
-  return coordinates;
+  for(let [rowNumber, row] of board.entries()) {
+    for(let colNumber = 0; colNumber < row.length; colNumber++) {
+      if(row[colNumber] === location) {
+        return`(${colNumber}, ${rowNumber})`; 
+      }
+    }
+  }
+
+  return null;
 }
 
 // ========================================
