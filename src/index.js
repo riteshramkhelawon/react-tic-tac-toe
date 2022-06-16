@@ -86,11 +86,12 @@ class Game extends React.Component {
 
   render() {
     const activeStep = {
-      fontWeight: 'bold'
+      backgroundColor: 'skyblue'
     }
 
     const inactiveStep = {
-      fontWeight: 'normal'
+      backgroundColor: 'grey',
+      color: 'white'
     }
 
     const history = this.state.history;
