@@ -70,7 +70,7 @@ class Game extends React.Component {
     this.setState({ 
       history: history.concat([{
         squares: squares,
-        location: getCoordinates(i)
+        location: [Math.floor(i % 3), Math.floor(i / 3)]
       }]),
       xIsNext: !this.state.xIsNext,
       stepNumber: history.length
@@ -91,6 +91,9 @@ class Game extends React.Component {
 
     const moves = history.map((step, move) => {
       const desc = move ? `Go to move # ${move} at cell ${step.location}` : `Restart game`;
+      if(current.squares === step.squares){
+        console.log('fff')
+      }
       return (
         <li key={ move }>
           <button onClick={ () => this.jumpTo(move)}>{ desc }</button>
@@ -135,24 +138,6 @@ function getWinner(squares) {
   for (let i = 0; i < winningCombos.length; i++) {
     const [a, b, c] = winningCombos[i];
     if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) return squares[a];
-  }
-
-  return null;
-}
-
-function getCoordinates(location) {
-  const board = [
-    [0,1,2],
-    [3,4,5],
-    [6,7,8]
-  ]
-
-  for(let [rowNumber, row] of board.entries()) {
-    for(let colNumber = 0; colNumber < row.length; colNumber++) {
-      if(row[colNumber] === location) {
-        return`(${colNumber}, ${rowNumber})`; 
-      }
-    }
   }
 
   return null;
