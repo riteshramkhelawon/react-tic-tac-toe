@@ -85,18 +85,24 @@ class Game extends React.Component {
   }
 
   render() {
+    const activeStep = {
+      fontWeight: 'bold'
+    }
+
+    const inactiveStep = {
+      fontWeight: 'normal'
+    }
+
     const history = this.state.history;
     const current = history[this.state.stepNumber];
     const winner = getWinner(current.squares);
 
     const moves = history.map((step, move) => {
       const desc = move ? `Go to move # ${move} at cell ${step.location}` : `Restart game`;
-      if(current.squares === step.squares){
-        console.log('fff')
-      }
+  
       return (
         <li key={ move }>
-          <button onClick={ () => this.jumpTo(move)}>{ desc }</button>
+          <button style={ this.state.stepNumber === move ?  activeStep : inactiveStep } onClick={ () => this.jumpTo(move)}>{ desc }</button>
         </li>
       );
     });
